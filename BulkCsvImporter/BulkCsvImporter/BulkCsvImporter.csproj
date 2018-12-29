@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BulkCsvImporter</RootNamespace>
     <AssemblyName>BulkCsvImporter</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -43,7 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\OptionValidator.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Constant\FileSourceOptionKeyConst.cs" />
+    <Compile Include="Constant\FileSourceTypeEnum.cs" />
+    <Compile Include="Model\ActionResult.cs" />
+    <Compile Include="Model\FileSourceOption.cs" />
+    <Compile Include="Model\FtpFileSourceOption.cs" />
+    <Compile Include="Model\LocalFileSourceOption.cs" />
+    <Compile Include="Model\SingleFileImportOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

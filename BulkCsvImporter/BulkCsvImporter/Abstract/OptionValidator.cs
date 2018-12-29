@@ -6,11 +6,11 @@ using System.Text;
 
 namespace BulkCsvImporter.Abstract
 {
-    public abstract class FileSourceOptionValidator
+    public abstract class OptionValidator
     {
         private FtpFileSourceOption _ftpFileSourceOption = null;
 
-        public FileSourceOptionValidator(FtpFileSourceOption ftpFileSourceOption)
+        public OptionValidator(FtpFileSourceOption ftpFileSourceOption)
         {
             _ftpFileSourceOption = ftpFileSourceOption;
         }
