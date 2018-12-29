@@ -6,12 +6,36 @@ using System.Text;
 
 namespace BulkCsvImporter.Model
 {
-    public class SingleFileImportOption
+    public class SingleFileImportOption : IOptionValidate
     {
-        public Dictionary<int, string> ColumnMatchDictionary { get; set; }
+        public ImportTagetOption ImportTargetOption { get; set; }
 
-        public string TableName { get; set; }
+        public DatabaseConnectOption DatabaseConnectOption { get; set; }
 
         public FileSourceOption FileSourceOption { get; set; }
+
+        public SingleFileImportOption()
+        {
+            ImportTargetOption = new ImportTagetOption();
+            DatabaseConnectOption = new DatabaseConnectOption();
+        }
+
+        public void Validate()
+        {
+            if (FileSourceOption == null)
+                throw new ArgumentNullException("FileSourceOption cannot be null");
+            else
+                FileSourceOption.Validate();
+
+            if (ImportTargetOption == null)
+                throw new ArgumentNullException("ImportTargetOption cannot be null");
+            else
+                ImportTargetOption.Validate();
+
+            if (DatabaseConnectOption == null)
+                throw new ArgumentNullException("DatabaseConnectOption cannot be null");
+            else
+                DatabaseConnectOption.Validate();
+        }
     }
 }

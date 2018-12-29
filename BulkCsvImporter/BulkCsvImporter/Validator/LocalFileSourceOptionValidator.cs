@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BulkCsvImporter.Validator
 {
-    internal class LocalFileSourceOptionValidator : OptionValidator
+    internal class LocalFileSourceOptionValidator : IValidator
     {
         public LocalFileSourceOptionValidator(FileSourceOption fileSourceOption) : base(fileSourceOption)
         { }
@@ -26,6 +26,11 @@ namespace BulkCsvImporter.Validator
             if (string.IsNullOrWhiteSpace(localFileSourceOption.FilePath))
             {
                 throw new ArgumentNullException("The FilePath is not provided");
+            }
+
+            if (!localFileSourceOption.FilePath.EndsWith(".csv"))
+            {
+                throw new ArgumentException("The specified file is not in CSV format");
             }
 
             if (!File.Exists(localFileSourceOption.FilePath))

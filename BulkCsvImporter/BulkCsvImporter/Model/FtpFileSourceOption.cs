@@ -53,5 +53,10 @@ namespace BulkCsvImporter.Model
                 Options[FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_USERNAME] = value;
             }
         }
+
+        public override void Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

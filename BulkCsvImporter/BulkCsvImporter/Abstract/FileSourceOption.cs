@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BulkCsvImporter.Abstract
 {
-    public abstract class FileSourceOption
+    public abstract class FileSourceOption : IOptionValidate
     {
         public FileSourceType FileSourceType { get; set; }
 
@@ -27,5 +27,7 @@ namespace BulkCsvImporter.Abstract
                 Options.Add(FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_PASSWORD, string.Empty);
             }
         }
+
+        public abstract void Validate();
     }
 }

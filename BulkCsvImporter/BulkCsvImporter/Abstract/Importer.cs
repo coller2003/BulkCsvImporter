@@ -1,21 +1,17 @@
-﻿using BulkCsvImporter.Factory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BulkCsvImporter.Model;
 
 namespace BulkCsvImporter.Abstract
 {
     public abstract class Importer
     {
-        protected FileSourceOption _fileSourceOption = null;
-        protected OptionValidator _optionValidator = null;
+        protected SingleFileImportOption _singleFileImportOption = null;
 
-        public Importer(FileSourceOption fileSourceOption)
+        public Importer(SingleFileImportOption singleFileImportOption)
         {
-            _fileSourceOption = fileSourceOption;
-            _optionValidator = OptionValidatorFactory.Create(_fileSourceOption);
-            _optionValidator.Validate();
+            _singleFileImportOption = singleFileImportOption;
+            _singleFileImportOption.Validate();
         }
+
+        public abstract void Import();
     }
 }

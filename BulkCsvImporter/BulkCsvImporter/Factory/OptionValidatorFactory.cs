@@ -10,9 +10,9 @@ namespace BulkCsvImporter.Factory
 {
     static class OptionValidatorFactory
     {
-        public static OptionValidator Create(FileSourceOption fileSourceOption)
+        public static IValidator Create(FileSourceOption fileSourceOption)
         {
-            OptionValidator result = null;
+            IValidator result = null;
             switch (fileSourceOption.FileSourceType)
             {
                 case FileSourceType.Local:
