@@ -7,7 +7,7 @@ using System.Text;
 
 namespace BulkCsvImporter.Extension
 {
-    static class SingleFileImportOptionExtension
+    public static class SingleFileImportOptionExtension
     {
         public static SingleFileImportOption BuildLocalFileSource(this SingleFileImportOption option, string filePath)
         {

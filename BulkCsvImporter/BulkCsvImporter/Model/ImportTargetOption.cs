@@ -6,9 +6,9 @@ using System.Text;
 
 namespace BulkCsvImporter.Model
 {
-    public class ImportTagetOption : IOptionValidate
+    public class ImportTargetOption : IOptionValidate
     {
-        public ImportTagetOption()
+        public ImportTargetOption()
         {
             KeyColumns = new List<string>();
             Columns = new List<string>();

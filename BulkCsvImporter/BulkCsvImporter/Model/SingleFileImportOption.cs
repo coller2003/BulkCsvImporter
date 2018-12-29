@@ -8,7 +8,7 @@ namespace BulkCsvImporter.Model
 {
     public class SingleFileImportOption : IOptionValidate
     {
-        public ImportTagetOption ImportTargetOption { get; set; }
+        public ImportTargetOption ImportTargetOption { get; set; }
 
         public DatabaseConnectOption DatabaseConnectOption { get; set; }
 
@@ -16,7 +16,7 @@ namespace BulkCsvImporter.Model
 
         public SingleFileImportOption()
         {
-            ImportTargetOption = new ImportTagetOption();
+            ImportTargetOption = new ImportTargetOption();
             DatabaseConnectOption = new DatabaseConnectOption();
         }
 
