@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BulkCsvImporter.Constant
 {
-    public enum FileSourceTypeEnum
+    public enum FileSourceType
     {
         Local = 1,
         Ftp = 5

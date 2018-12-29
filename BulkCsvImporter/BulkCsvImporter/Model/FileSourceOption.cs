@@ -8,7 +8,7 @@ namespace BulkCsvImporter.Abstract
 {
     public abstract class FileSourceOption
     {
-        public FileSourceTypeEnum FileSourceType { get; set; }
+        public FileSourceType FileSourceType { get; set; }
 
         public Dictionary<string, string> Options { get; set; }
 
@@ -16,15 +16,15 @@ namespace BulkCsvImporter.Abstract
         {
             Options = new Dictionary<string, string>();
 
-            if (FileSourceType == FileSourceTypeEnum.Local)
+            if (FileSourceType == FileSourceType.Local)
             {
-                Options.Add(FileSourceOptionKeyConst.KEY_FILESOURCETYPE_LOCAL_FILEPATH, string.Empty);
+                Options.Add(FileSourceOptionKey.KEY_FILESOURCETYPE_LOCAL_FILEPATH, string.Empty);
             }
-            else if (FileSourceType == FileSourceTypeEnum.Ftp)
+            else if (FileSourceType == FileSourceType.Ftp)
             {
-                Options.Add(FileSourceOptionKeyConst.KEY_FILESOURCETYPE_FTP_HOST, string.Empty);
-                Options.Add(FileSourceOptionKeyConst.KEY_FILESOURCETYPE_FTP_USERNAME, string.Empty);
-                Options.Add(FileSourceOptionKeyConst.KEY_FILESOURCETYPE_FTP_PASSWORD, string.Empty);
+                Options.Add(FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_HOST, string.Empty);
+                Options.Add(FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_USERNAME, string.Empty);
+                Options.Add(FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_PASSWORD, string.Empty);
             }
         }
     }

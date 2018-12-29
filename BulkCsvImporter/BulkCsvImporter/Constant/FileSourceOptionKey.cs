@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BulkCsvImporter.Constant
 {
-    public class FileSourceOptionKeyConst
+    public class FileSourceOptionKey
     {
         public const string KEY_FILESOURCETYPE_LOCAL_FILEPATH = "FilePath";
 

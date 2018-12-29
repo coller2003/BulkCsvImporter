@@ -11,7 +11,7 @@ namespace BulkCsvImporter.Model
     {
         public LocalFileSourceOption(string filePath) : base()
         {
-            FileSourceType = Constant.FileSourceTypeEnum.Local;
+            FileSourceType = Constant.FileSourceType.Local;
             FilePath = filePath;
         }
 
@@ -19,11 +19,11 @@ namespace BulkCsvImporter.Model
         {
             get
             {
-                return Options[FileSourceOptionKeyConst.KEY_FILESOURCETYPE_LOCAL_FILEPATH];
+                return Options[FileSourceOptionKey.KEY_FILESOURCETYPE_LOCAL_FILEPATH];
             }
             set
             {
-                Options[FileSourceOptionKeyConst.KEY_FILESOURCETYPE_LOCAL_FILEPATH] = value;
+                Options[FileSourceOptionKey.KEY_FILESOURCETYPE_LOCAL_FILEPATH] = value;
             }
         }
     }

@@ -45,8 +45,8 @@
   <ItemGroup>
     <Compile Include="Abstract\OptionValidator.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="Constant\FileSourceOptionKeyConst.cs" />
-    <Compile Include="Constant\FileSourceTypeEnum.cs" />
+    <Compile Include="Constant\FileSourceOptionKey.cs" />
+    <Compile Include="Enum\FileSourceType.cs" />
     <Compile Include="Model\ActionResult.cs" />
     <Compile Include="Model\FileSourceOption.cs" />
     <Compile Include="Model\FtpFileSourceOption.cs" />
