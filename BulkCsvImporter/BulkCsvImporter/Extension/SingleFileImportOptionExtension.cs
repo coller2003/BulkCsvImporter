@@ -22,7 +22,7 @@ namespace BulkCsvImporter.Extension
             return option;
         }
 
-        public static SingleFileImportOption BuildImportTaget(this SingleFileImportOption option, bool needUpdate, string targetTableName, List<string> columns, List<string> keyColumns)
+        public static SingleFileImportOption BuildImportTarget(this SingleFileImportOption option, bool needUpdate, string targetTableName, List<string> columns, List<string> keyColumns)
         {
             option.ImportTargetOption.NeedUpdate = needUpdate;
             option.ImportTargetOption.KeyColumns = keyColumns;

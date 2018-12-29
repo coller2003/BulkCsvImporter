@@ -16,10 +16,8 @@ namespace BulkCsvImporter.DatabaseImporter
         public SqlServerImporter(SingleFileImportOption singleFileImportOption) : base(singleFileImportOption)
         { }
 
-        private void CreateTempTable(SqlConnection connection)
+        private void CreateTempTable(SqlConnection connection, CsvReader csvReader)
         {
-            var result = new DataTable();
-
             using (var command = connection.CreateCommand())
             {
                 var sql = new StringBuilder();
@@ -30,6 +28,7 @@ namespace BulkCsvImporter.DatabaseImporter
                 var columns = _singleFileImportOption.ImportTargetOption.Columns;
                 for (int i = 0; i < columns.Count; i++)
                 {
+                    csvReader.Columns.Add(new Column() { Name = columns[i] });
                     sql.AppendLine("SELECT " + i + ",'" + columns[i] + "' UNION ");
                 }
                 sql = sql.Remove(sql.Length - 9, 9);
@@ -50,27 +49,27 @@ namespace BulkCsvImporter.DatabaseImporter
 
                         if (reader["DATA_TYPE"].ToString() == "uniqueidentifier")
                         {
-                            result.Columns.Add(reader["COLUMN_NAME"].ToString(), typeof(Guid));
+                            csvReader.Columns.Single(c => c.Name == reader["COLUMN_NAME"].ToString()).Type = typeof(Guid);
                         }
                         else if (reader["DATA_TYPE"].ToString() == "bit")
                         {
-                            result.Columns.Add(reader["COLUMN_NAME"].ToString(), typeof(bool));
+                            csvReader.Columns.Single(c => c.Name == reader["COLUMN_NAME"].ToString()).Type = typeof(bool);
                         }
                         else if (reader["DATA_TYPE"].ToString() == "datetime")
                         {
-                            result.Columns.Add(reader["COLUMN_NAME"].ToString(), typeof(DateTime));
+                            csvReader.Columns.Single(c => c.Name == reader["COLUMN_NAME"].ToString()).Type = typeof(DateTime);
                         }
                         else if (reader["DATA_TYPE"].ToString() == "decimal")
                         {
-                            result.Columns.Add(reader["COLUMN_NAME"].ToString(), typeof(decimal));
+                            csvReader.Columns.Single(c => c.Name == reader["COLUMN_NAME"].ToString()).Type = typeof(decimal);
                         }
                         else if (reader["DATA_TYPE"].ToString() == "int")
                         {
-                            result.Columns.Add(reader["COLUMN_NAME"].ToString(), typeof(int));
+                            csvReader.Columns.Single(c => c.Name == reader["COLUMN_NAME"].ToString()).Type = typeof(int);
                         }
                         else
                         {
-                            result.Columns.Add(reader["COLUMN_NAME"].ToString());
+                            csvReader.Columns.Single(c => c.Name == reader["COLUMN_NAME"].ToString()).Type = typeof(string);
                         }
                     }
                 }
@@ -94,14 +93,14 @@ namespace BulkCsvImporter.DatabaseImporter
         {
             var builder = new StringBuilder();
             builder.AppendLine($"BEGIN TRANSACTION T1;");
-            builder.AppendLine($"INSERT INTO [dbo].[{_singleFileImportOption.ImportTargetOption.TargetTableName}] ([Id]");
+            builder.AppendLine($"INSERT INTO [dbo].[{_singleFileImportOption.ImportTargetOption.TargetTableName}] (");
 
             var columns = _singleFileImportOption.ImportTargetOption.Columns;
             foreach (var column in columns)
             {
-                builder.AppendLine($",[{column}]");
+                builder.AppendLine($"[{column}],");
             }
-
+            builder = builder.Remove(builder.Length - 3, 3);
             builder.AppendLine($")");
             builder.AppendLine($"SELECT newid(),");
 
@@ -109,10 +108,6 @@ namespace BulkCsvImporter.DatabaseImporter
             {
                 builder.AppendLine($"{column},");
             }
-
-            builder.AppendLine($"'{Guid.Empty}',");
-            builder.AppendLine($"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}',");
-            builder.AppendLine($"'0',");
 
             builder = builder.Remove(builder.Length - 3, 3);
             builder.AppendLine($" FROM ##{_singleFileImportOption.ImportTargetOption.TargetTableName};");
@@ -132,35 +127,39 @@ namespace BulkCsvImporter.DatabaseImporter
 
             foreach (var key in _singleFileImportOption.ImportTargetOption.KeyColumns)
             {
-                builder.AppendLine($"AND T.[{key}] = S.[{key}]");
+                builder.AppendLine($" AND T.[{key}] = S.[{key}]");
             }
 
             builder.AppendLine(")");
 
             builder.AppendLine($"WHEN NOT MATCHED BY TARGET");
-            builder.AppendLine($"THEN INSERT ([Id]");
+            builder.AppendLine($"THEN INSERT (");
 
             var columns = _singleFileImportOption.ImportTargetOption.Columns;
             foreach (var column in columns)
             {
-                builder.AppendLine($",[{column}]");
+                builder.AppendLine($"[{column}],");
             }
-
+            builder = builder.Remove(builder.Length - 3, 3);
             builder.AppendLine($")");
-            builder.AppendLine($"VALUES (newid(),");
+            builder.AppendLine($"VALUES (");
 
             foreach (var column in columns)
             {
                 builder.AppendLine($"S.{column},");
             }
 
+            builder = builder.Remove(builder.Length - 3, 3);
+            builder.AppendLine(")");
             builder.AppendLine($"WHEN MATCHED");
             builder.AppendLine($"THEN UPDATE SET");
             foreach (var column in columns)
             {
                 builder.AppendLine($"T.{column} = S.{column},");
             }
-            builder.AppendLine($" DROP TABLE ##{_singleFileImportOption.ImportTargetOption};");
+            builder = builder.Remove(builder.Length - 3, 3);
+            builder.AppendLine(";");
+            builder.AppendLine($" DROP TABLE ##{_singleFileImportOption.ImportTargetOption.TargetTableName};");
 
             builder.AppendLine("COMMIT TRANSACTION T1;");
             return builder.ToString();
@@ -170,17 +169,19 @@ namespace BulkCsvImporter.DatabaseImporter
         {
             using (var connection = new SqlConnection(_singleFileImportOption.DatabaseConnectOption.ConnectionString))
             {
+                connection.Open();
                 using (var stream = _streamer.GetFileStream(_singleFileImportOption.FileSourceOption))
                 {
                     using (var streamReader = new StreamReader(stream))
                     {
                         using (var csvReader = new CsvReader(streamReader, true))
                         {
-                            this.CreateTempTable(connection);
-                            using (SqlBulkCopy sqlBulk = new SqlBulkCopy(_singleFileImportOption.DatabaseConnectOption.ConnectionString, SqlBulkCopyOptions.UseInternalTransaction))
+                            this.CreateTempTable(connection, csvReader);
+                            using (SqlBulkCopy sqlBulk = new SqlBulkCopy(_singleFileImportOption.DatabaseConnectOption.ConnectionString))
                             {
                                 sqlBulk.BulkCopyTimeout = int.MaxValue;
                                 sqlBulk.DestinationTableName = "##" + _singleFileImportOption.ImportTargetOption.TargetTableName;
+
                                 sqlBulk.WriteToServer(csvReader);
                             }
                         }

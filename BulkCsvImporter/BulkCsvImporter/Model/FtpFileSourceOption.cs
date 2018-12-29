@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BulkCsvImporter.Model
 {
-    public class FtpFileSourceOption : FileSourceOption
+    class FtpFileSourceOption : FileSourceOption
     {
         public FtpFileSourceOption(string host, string username, string password) : base()
         {

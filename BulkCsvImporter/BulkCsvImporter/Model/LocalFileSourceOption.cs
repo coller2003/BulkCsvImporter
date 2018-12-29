@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BulkCsvImporter.Model
 {
-    public class LocalFileSourceOption : FileSourceOption
+    class LocalFileSourceOption : FileSourceOption
     {
         public LocalFileSourceOption(string filePath) : base()
         {

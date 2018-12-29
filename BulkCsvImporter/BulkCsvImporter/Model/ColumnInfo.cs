@@ -1,8 +1,9 @@
-﻿using System.Data;
+﻿using LumenWorks.Framework.IO.Csv;
+using System.Data;
 
 namespace BulkCsvImporter.Model
 {
-    public class ColumnInfo
+    class ColumnInfo
     {
         public string Name { get; set; }
         public string DataType { get; set; }
