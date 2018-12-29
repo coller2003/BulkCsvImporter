@@ -43,16 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\Importer.cs" />
     <Compile Include="Abstract\OptionValidator.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Constant\FileSourceOptionKey.cs" />
     <Compile Include="Enum\FileSourceType.cs" />
+    <Compile Include="Factory\OptionValidatorFactory.cs" />
     <Compile Include="Model\ActionResult.cs" />
-    <Compile Include="Model\FileSourceOption.cs" />
+    <Compile Include="Abstract\FileSourceOption.cs" />
     <Compile Include="Model\FtpFileSourceOption.cs" />
     <Compile Include="Model\LocalFileSourceOption.cs" />
     <Compile Include="Model\SingleFileImportOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validator\LocalFileSourceOptionValidator.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

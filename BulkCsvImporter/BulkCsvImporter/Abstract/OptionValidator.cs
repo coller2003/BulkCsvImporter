@@ -8,13 +8,13 @@ namespace BulkCsvImporter.Abstract
 {
     public abstract class OptionValidator
     {
-        private FtpFileSourceOption _ftpFileSourceOption = null;
+        protected FileSourceOption _fileSourceOption = null;
 
-        public OptionValidator(FtpFileSourceOption ftpFileSourceOption)
+        public OptionValidator(FileSourceOption fileSourceOption)
         {
-            _ftpFileSourceOption = ftpFileSourceOption;
+            _fileSourceOption = fileSourceOption;
         }
 
-        public abstract ActionResult Validate();
+        public abstract void Validate();
     }
 }
