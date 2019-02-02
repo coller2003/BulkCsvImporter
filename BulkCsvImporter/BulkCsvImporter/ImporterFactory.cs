@@ -8,8 +8,16 @@ using System.Text;
 
 namespace BulkCsvImporter
 {
+    /// <summary>
+    /// Simple factory for init Importer
+    /// </summary>
     public static class ImporterFactory
     {
+        /// <summary>
+        /// Create an Importer instance
+        /// </summary>
+        /// <param name="singleFileImportOption">A single file import option</param>
+        /// <returns>Importer instance</returns>
         public static Importer CreateInstance(SingleFileImportOption singleFileImportOption)
         {
             Importer importer = null;

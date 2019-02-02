@@ -7,8 +7,16 @@ using System.Text;
 
 namespace BulkCsvImporter.Streamer
 {
+    /// <summary>
+    /// Simple factory for Streamer
+    /// </summary>
     static class StreamerFactory
     {
+        /// <summary>
+        /// Create an IStreamer instance
+        /// </summary>
+        /// <param name="fileSourceType">The file source type of streamer</param>
+        /// <returns>IStreamer instance</returns>
         public static IStreamer CreateInstance(FileSourceType fileSourceType)
         {
             IStreamer result = null;
