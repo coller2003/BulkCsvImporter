@@ -41,6 +41,7 @@ var connectionString = "data source=.;initial catalog=sa;persist security info=T
 //Then here you can start the import.
 var singleFileImportOption = new SingleFileImportOption()
                             .BuildDatabaseConnect(DatabaseType.SQLServer, connectionString)
+                            //The second arg is the table name that you would like the csv import to.
                             .BuildImportTarget(true, "OverdueInfo", columns, keys)
                             .BuildLocalFileSource(@"E:\OverdueInfo.csv");
 var importer = ImporterFactory.CreateInstance(singleFileImportOption);
