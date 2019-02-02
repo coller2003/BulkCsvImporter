@@ -14,7 +14,14 @@ namespace BulkCsvImporter.Model
             _errors = new List<string>();
         }
 
-        public bool Success { get; set; }
+        public bool Success
+        {
+            get
+            {
+                return _errors.Count <= 0;
+            }
+
+        }
 
         public string AllMessages
         {
@@ -22,6 +29,11 @@ namespace BulkCsvImporter.Model
             {
                 return string.Join(",", _errors);
             }
+        }
+
+        public void AddError(string error)
+        {
+            this._errors.Add(error);
         }
 
         public T Data { get; set; }

@@ -34,6 +34,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LumenWorks.Framework.IO, Version=3.9.1.0, Culture=neutral, PublicKeyToken=5ad3ea2f85776344, processorArchitecture=MSIL">
+      <HintPath>..\packages\LumenWorksX.Framework.IO.1.0.1\lib\net452\LumenWorks.Framework.IO.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,8 +46,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Abstract\IStreamer.cs" />
+    <Compile Include="Abstract\Importer.cs" />
+    <Compile Include="Abstract\IOptionValidate.cs" />
+    <Compile Include="ImporterFactory.cs" />
+    <Compile Include="Constant\FileSourceOptionKey.cs" />
+    <Compile Include="DatabaseImporter\SqlServerImporter.cs" />
+    <Compile Include="Enum\DatabaseType.cs" />
+    <Compile Include="Enum\FileSourceType.cs" />
+    <Compile Include="Extension\SingleFileImportOptionExtension.cs" />
+    <Compile Include="Model\ActionResult.cs" />
+    <Compile Include="Abstract\FileSourceOption.cs" />
+    <Compile Include="Model\ColumnInfo.cs" />
+    <Compile Include="Model\DatabaseConnectOption.cs" />
+    <Compile Include="Model\ImportTargetOption.cs" />
+    <Compile Include="Model\FtpFileSourceOption.cs" />
+    <Compile Include="Model\LocalFileSourceOption.cs" />
+    <Compile Include="Model\SingleFileImportOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Streamer\LocalFileStreamer.cs" />
+    <Compile Include="Streamer\StreamerFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,11 +8,11 @@ using System.Text;
 
 namespace BulkCsvImporter.Model
 {
-    public class FtpFileSourceOption : FileSourceOption
+    class FtpFileSourceOption : FileSourceOption
     {
         public FtpFileSourceOption(string host, string username, string password) : base()
         {
-            FileSourceType = FileSourceTypeEnum.Ftp;
+            FileSourceType = FileSourceType.Ftp;
             Host = host;
             UserName = username;
             Password = password;
@@ -22,11 +22,11 @@ namespace BulkCsvImporter.Model
         {
             get
             {
-                return Options[FileSourceOptionKeyConst.KEY_FILESOURCETYPE_FTP_HOST];
+                return Options[FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_HOST];
             }
             set
             {
-                Options[FileSourceOptionKeyConst.KEY_FILESOURCETYPE_FTP_HOST] = value;
+                Options[FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_HOST] = value;
             }
         }
 
@@ -34,11 +34,11 @@ namespace BulkCsvImporter.Model
         {
             get
             {
-                return Options[FileSourceOptionKeyConst.KEY_FILESOURCETYPE_FTP_PASSWORD];
+                return Options[FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_PASSWORD];
             }
             set
             {
-                Options[FileSourceOptionKeyConst.KEY_FILESOURCETYPE_FTP_PASSWORD] = value;
+                Options[FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_PASSWORD] = value;
             }
         }
 
@@ -46,12 +46,17 @@ namespace BulkCsvImporter.Model
         {
             get
             {
-                return Options[FileSourceOptionKeyConst.KEY_FILESOURCETYPE_FTP_USERNAME];
+                return Options[FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_USERNAME];
             }
             set
             {
-                Options[FileSourceOptionKeyConst.KEY_FILESOURCETYPE_FTP_USERNAME] = value;
+                Options[FileSourceOptionKey.KEY_FILESOURCETYPE_FTP_USERNAME] = value;
             }
+        }
+
+        public override void Validate()
+        {
+            throw new NotImplementedException();
         }
     }
 }
