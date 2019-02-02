@@ -16,7 +16,7 @@ namespace BulkCsvImporter.Console
             var keys = new List<string>() { "ApplicationNumber" };
 
             var singleFileImportOption = new SingleFileImportOption()
-                                            .BuildDatabaseConnect(DatabaseType.SQLServer, "data source=114.55.43.65;initial catalog=DHT;persist security info=True;user id=dht_test;password=hj34*yu&[klkg34334;MultipleActiveResultSets=True;")
+                                            .BuildDatabaseConnect(DatabaseType.SQLServer, "data source=114.55.43.65;initial catalog=DHT;persist security info=True;user id=dht_test;password=hj34*yu&[klkg3433;MultipleActiveResultSets=True;")
                                             .BuildImportTarget(true, "OverdueInfo", columns, keys)
                                             .BuildLocalFileSource(@"E:\OverdueInfo.csv");
             var importer = ImporterFactory.CreateInstance(singleFileImportOption);
