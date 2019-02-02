@@ -5,6 +5,8 @@ Realized with the batch importing feature provided by DB.(Only support SQL Serve
 
 The columns mapping between DB table columns and csv columns are based on the configuration.
 
+This library is depend on .Net Framework 4.6.2
+
 Dependent library:
 
 - [LumenWorksX.Framework.IO.CsvReader](https://www.nuget.org/packages/LumenWorksCsvReader/)
