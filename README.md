@@ -29,7 +29,7 @@ Here is how to use it:
 
 ```c#
 
-//Define the column names mapping from csv to database table as a string array, the first column must be the PK column and should use guid as database.
+//Define the column names mapping from csv to database table as a string array, the first column must be the PK column and should use guid as data type.
 var columns = "Id,EmployeeNo,Name,Age,Column3".Split(',').ToList();
 //Define the business PK as a string array, these columns should be included in the columns defined in above.
 var keys = new List<string>() { "EmployeeNo" };
